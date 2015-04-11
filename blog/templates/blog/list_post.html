@@ -1,0 +1,41 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/list_post.css' %}" />
+<html>
+  <head>
+    <title>
+      Post list
+    </title>
+  </head>
+
+  <body>
+    {% if user.is_authenticated %}
+      {% for each in latest_post_list %}
+        <a href="/blog/post/{{each.id}}/" class="post_link">
+          <div class="post_div">
+            <div class="post_header">
+              <label class="poster_name">
+                {{each.user.username}}
+              </label>
+              <label class="post_date">
+                {{each.pub_date}}
+              </label>
+            </div>
+            <div class="post_content">
+              <label class="post_content_label">
+                {{each.content}}
+              </label>
+              <br />
+              <img class="post_content_image" src={{each.get_image_url}} alt="pic" />
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+      <a href="/blog/add_post/">Add your own posts!<a/>
+      </br>
+      <a href="/blog/">Return to the index page.<a/>
+    {% else %}
+      <a href="/blog/login">Login</a>
+    {% endif %}
+  </body>
+</html>
+

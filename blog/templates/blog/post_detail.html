@@ -1,0 +1,56 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/post_detail.css' %}" />
+<html>
+  <head>
+    <title>
+      Post detail
+    </title>
+  </head>
+
+  <body>
+    {% if user.is_authenticated %}
+      <div>
+        <label>
+          {{post.user.username}}
+        </label>
+        <label>
+          {{post.pub_date}}
+        </label>
+      </div>
+      <div>
+        <label>
+          {{post.content}}
+        <label/>
+        <br />
+        <img class="post_image" src={{post.get_image_url}} alt="post pic" />
+      </div>
+      <div>
+        {% for each in post_comment %}
+          <label>
+            {{each.user.username}}
+          </label>
+          <label>
+            {{each.pub_date}}
+          </label>
+          <br />
+          <label>
+            {{each.content}}
+          </label>
+          <br />
+        {% endfor %}
+      </div>
+      <form method="post" action="/blog/post/{{post_id}}/">
+        {% csrf_token %}
+        Comment:<input type="txt" name="content"> 
+        <br />
+        <input type="hidden" name="post_id" value={{post.id}}>
+        <input type="submit" value="Submit">
+      </form>
+      <a href="/blog/list_post">Back to recent posts</a>
+    {% else %}
+    <a href="/blog/login">Login</a>
+    <br />
+    {% endif %}
+  </body>
+</html>
+

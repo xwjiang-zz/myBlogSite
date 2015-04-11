@@ -1,0 +1,33 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'blog/index.css' %}" />
+
+<html>
+  <head>
+    <title>
+      fitness blog
+    </title>
+  </head>
+
+  <body>
+    <h1>
+      Your own fitness blog
+    </h1>
+    {% if user.is_authenticated %}
+    <h1> Hello {{ user.username}}! </h1>
+    <br />
+    <a href="/blog/add_post">Add your post here!</a>
+    <br />
+    <a href="/blog/list_post">See recent posts here!</a>
+    <br />
+    <a href="/blog/logout">Logout</a>
+    <br />
+    {% else %}
+    <a href="/blog/login">Login here.</a>
+    <br />
+    <a href="/blog/register">Not a user? Register here.</a>
+    <br />
+    {% endif %}
+    <img class="index_image" src="{% static 'blog/index.jpg' %}" alt="index pic" />
+  </body>
+</html>
+
